@@ -15,5 +15,10 @@
 </head>
 <body>
     <h1>Tamera Peake</h1>
+
+      <?php
+        echo "<h4>Wrote this in PHP</h4>";
+       ?>
+
 </body>
 </html>
