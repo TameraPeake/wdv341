@@ -15,7 +15,8 @@ $languageAgain = array("PHP", "HTML", "Javascript")
 
 <script>
 
-var languages = [PHP, HTML, Javascript];
+//var languages = [PHP, HTML, Javascript]; Am I trying to change a javascript array
+//to a php?
 
 </script>
 </head>
@@ -25,7 +26,7 @@ var languages = [PHP, HTML, Javascript];
 
   echo"<p>$number1 + $number2 = $total</p>";
 
-  echo "<h1>$languageAgain</h1>";
+  echo "Here is a list of languages:"." ".$languageAgain[0]." ".$languageAgain[1]." ".$languageAgain[2];
 ?>
 <h2><?PHP echo $yourName; ?></h2>
 </body>
