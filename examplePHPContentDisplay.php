@@ -12,6 +12,7 @@
 <head>
 <meta charset="utf-8">
 <title>Untitled Document</title>
+
 </head>
 
 <body>
@@ -82,17 +83,20 @@
 		} else {
 	?>
 
+	<?php
+		$validForm= false; //the form has errors or not
+		?>
 		<form>
 			<h4>Please Login to continue!</h4>
 
 			<p>
 				<label>Username:
-					<input type="text">
+					<input type="text"> <span <?php echo ($validForm)? "":"class='errorMessage'";?>></span>
 				</label>
 			</p>
 			<p>
 				<label>Password:
-					<input type="password">
+					<input type="password"> <span></span>
 				</label>
 			</p>
 			<p>
