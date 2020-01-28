@@ -72,6 +72,8 @@
 
 		$signedOn = false;	//Had the user signed into the system or needs to see the Login Form
 							//if you change it to 'true' it will show the welcome
+							//this gives you the option to create the form in html
+							//instead of in php. it's A LOT easier
 		if($signedOn){
 	?>
 		<h4>Hello Jeff Welcome Back to DMACC</h4>
