@@ -71,7 +71,7 @@
 	<?php
 
 		$signedOn = false;	//Had the user signed into the system or needs to see the Login Form
-
+							//if you change it to 'true' it will show the welcome
 		if($signedOn){
 	?>
 		<h4>Hello Jeff Welcome Back to DMACC</h4>
