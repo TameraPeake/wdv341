@@ -65,6 +65,7 @@
 
 
 	<h4>Display content for the Login Process</h4>
+
 	<!--asks if you're signed on, then Welcome. Otherwise, if not, here's the login form-->
 
 	<?php
