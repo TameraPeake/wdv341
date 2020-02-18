@@ -17,14 +17,13 @@
 
       $emailTest = new Emailer();
         //receives the function from emailer
-      $emailTest->set_senderEmail("peakeT91@gmail.com");
+      $emailTest->set_senderEmail("pet2433@tamerapeake.com");
         //stores "peakeT91@gmail.com" inside set_senderEmail and this is all
         //stored into $emailTest
-      echo $emailTest->get_SenderEmail();
+      echo $emailTest->get_senderEmail();
       //instantiate a new emailer object
       //this writes the information on the browser
       echo  $emailTest->sendEmail(); //send email to SMTP server
-
 
    ?>
 </html>
