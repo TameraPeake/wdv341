@@ -47,7 +47,7 @@
 	</table>
 </p>
 <h3>Display the values from the form using Method 2. Displays the individual values.</h3>
-<p>Intersts: <?php echo $inInterests; ?></p>
+<p>Interests: <?php echo $inInterests; ?></p>
 <p>School Year: <?php echo $inYear; ?></p>
 <p>Part-Time/Full-Time: <?php echo $inTime; ?></p>
 <p>School: <?php echo $inSchool; ?></p>
