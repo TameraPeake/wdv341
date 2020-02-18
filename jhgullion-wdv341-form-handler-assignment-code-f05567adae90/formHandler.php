@@ -19,7 +19,8 @@
 	$inFirstName = $_POST["firstName"];		//Get the value entered in the first name field
 	$inLastName = $_POST["lastName"];		//Get the value entered in the last name field
 	$inSchool = $_POST["school"];
-	$inTime = $_POST["studentTime"];		//Get the value entered in the school field
+	$inTime = $_POST["studentTime"];
+	$inYear = $_POST["studentYear"];		//Get the value entered in the school field
 
 
 ?>
@@ -45,6 +46,7 @@
 	</table>
 </p>
 <h3>Display the values from the form using Method 2. Displays the individual values.</h3>
+<p>School Year: <?php echo $inYear; ?></p>
 <p>Part-Time/Full-Time: <?php echo $inTime; ?></p>
 <p>School: <?php echo $inSchool; ?></p>
 <p>First Name: <?php echo $inFirstName; ?></p>
