@@ -1,25 +1,26 @@
 <?php
-//Model-Controller Area.  The PHP processing code goes in this area. 
+//Model-Controller Area.  The PHP processing code goes in this area.
 
 	//Method 1.  This uses a loop to read each set of name-value pairs stored in the $_POST array
 	$tableBody = "";		//use a variable to store the body of the table being built by the script
-	
+
 	foreach($_POST as $key => $value)		//This will loop through each name-value in the $_POST array
 	{
 		$tableBody .= "<tr>";				//formats beginning of the row
 		$tableBody .= "<td>$key</td>";		//dsiplay the name of the name-value pair from the form
 		$tableBody .= "<td>$value</td>";	//dispaly the value of the name-value pair from the form
 		$tableBody .= "</tr>";				//End this row
-	} 
-	
-	
+	}
+
+
 	//Method 2.  This method pulls the individual name-value pairs from the $_POST using the name
-	//as the key in an associative array.  
-	
+	//as the key in an associative array.
+
 	$inFirstName = $_POST["firstName"];		//Get the value entered in the first name field
 	$inLastName = $_POST["lastName"];		//Get the value entered in the last name field
-	$inSchool = $_POST["school"];			//Get the value entered in the school field
-	
+	$inSchool = $_POST["school"];
+	$inTime = $_POST["studentTime"];		//Get the value entered in the school field
+
 
 ?>
 <!DOCTYPE html>
@@ -44,6 +45,7 @@
 	</table>
 </p>
 <h3>Display the values from the form using Method 2. Displays the individual values.</h3>
+<p>Part-Time/Full-Time: <?php echo $inTime; ?></p>
 <p>School: <?php echo $inSchool; ?></p>
 <p>First Name: <?php echo $inFirstName; ?></p>
 <p>Last Name: <?php echo $inLastName; ?></p>
