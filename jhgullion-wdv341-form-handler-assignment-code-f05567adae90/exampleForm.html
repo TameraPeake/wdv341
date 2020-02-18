@@ -23,23 +23,37 @@
     <input type="text" name="school" id="school" />
   </p>
   <div>Part-Time/Full-Time Student:
-    <p>Part-Time:
+    <p>
+      <label for="studentTime">Part-Time:</label>
       <input type="checkbox" name="studentTime" value="Part-Time">
     </p>
-    <p>Full-Time:
+    <p>
+      <label for="studentTime">Full-Time:</label>
       <input type="checkbox" name="studentTime" value="Full-Time">
     </p>
   </div>
   <div>School Year:
-    <p>First Year:
+    <p>
+      <label for="studentYear">First Year:</label>
       <input type="radio" name="studentYear" value="FirstYear">
     </p>
-    <p>Second Year:
+    <p>
+      <label for="studentYear">Second Year:</label>
       <input type="radio" name="studentYear" value="SecondYear">
     </p>
-    <p>Third Year:
+    <p>
+      <label for="studentYear">Third Year:</label>
       <input type="radio" name="studentYear" value="ThirdYear">
     </p>
+  </div>
+  <div>Interests:
+      <label for="studentInterests">Choose one interest:</label>
+      <select>
+        <option name="studentInterests" value="choose">Choose one</option>
+        <option name="studentInterests" value="Reading">Reading</option>
+        <option name="studentInterests" value="Sports">Sports</option>
+        <option name="studentInterests" value="Netflix">Netflix</option>
+      </select>
   </div>
   <p>
     <input type="submit" name="button" id="button" value="Submit" />
