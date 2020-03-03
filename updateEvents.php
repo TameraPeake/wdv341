@@ -7,16 +7,15 @@
     //6. It will execute the prepared statement to insert into the database
     //7. It will display a success/failure message to the user
 
-
   //step 1.
     require 'dbConnect.php';  //this pulls the file DBconnect file into the page. it accesses and runs it
 try {
    //step 2. //We hardcoded the data in this instance
-  $eventName= "wdv341 Intro PHP";
-  $eventDescription= "We are inserting into a database.";
-  $eventPresenter="Tamera Peake";
-  $eventDate="2020-02-28";
-  $eventTime="2020-02-29";
+  $eventName= $_POST["eventName"];
+  $eventDescription= $_POST["eventDescription"];
+  $eventPresenter=$_POST["eventPresenter"];
+  $eventDate=$_POST["eventDate"];
+  $eventTime=$_POST["eventTime"];
 
 //step 3 & 4
 //PDO Prepared Statements
@@ -54,9 +53,16 @@ $conn = null;
 <head>
   <meta charset="utf-8">
   <title>udpdateevents php</title>
-  <h1>Thanks for shopping with us!</h1>
+
+
+
 </head>
 <body>
-
+    <h1>Thanks for shopping with us!</h1>
+    <p>Event Name:<?php echo $eventName ?></p>
+    <p>Event Presenter:<?php echo $eventPresenter ?></p>
+    <p>Event Description:<?php echo $eventDescription ?></p>
+    <p>Event Date:<?php echo $eventDate ?></p>
+    <p>Event Time:<?php echo $eventTime ?></p>
 </body>
 </html>
