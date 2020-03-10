@@ -1,7 +1,7 @@
 <?php
 
   //assign a default value to input fields and error messages
-
+require 'dbConnect.php';
   $inProdName = "";
   $inProdPrice = "";
   $inRadio = "";
@@ -10,6 +10,8 @@
   $inProdPriceErrMsg = "";
   $inProdRadioErrMsg = "";
 
+  $inTest = "It's working";
+  echo $_POST[$inTest];
   if(isset($_POST["prod_submit"]))
   {
     echo "<h1> Thank you for submitting the form!</h1>";
@@ -29,7 +31,7 @@
     $validForm = false; //sets a flag/switch to make sure form data is valid
     //PHP validation go here
 
-    
+
     if($validForm) {
         //yes good data- do database stuff here!
     }
@@ -76,7 +78,7 @@
 <form name="form1" method="post" action="selfPostExample.php" value="Wagon">
   <p>
     <label for="prod_name">Product Name: </label>
-    <input type="text" name="prod_name" id="prod_name" value=" <?php echo $inProdName ?>">
+    <input type="text" name="prod_name" id="prod_name" value="<?php echo $inProdName ?>">
     <span><?php echo $prodNameErrMsg; ?></span>
   </p>
   <p>
