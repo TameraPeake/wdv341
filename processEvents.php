@@ -20,7 +20,7 @@ $eventPresenterErrMsg = "";
 $eventDateErrMsg = "";
 $eventTimeErrMsg = "";
 
-$validForm = true;
+$validForm = false;
 
 if(isset($_POST["submit"])) {
   $inEventName= $_POST["eventName"];
@@ -40,7 +40,7 @@ if(isset($_POST["submit"])) {
 
           function validateEventName($inName)
           {
-            global $validForm, $eventNameErrMsg;		//Use the GLOBAL Version of these variables instead of making them local
+            global $validForm, $eventNameErrMsg;
             $eventNameErrMsg = "";
 
             if($inEventName == "")
@@ -48,11 +48,11 @@ if(isset($_POST["submit"])) {
               $validForm = false;
               $eventNameErrMsg = "Name cannot be blank";
             }
-          }//end validateName()
+          }
 
           function validateEventDescription($inName)
           {
-            global $validForm, $eventDescriptionErrMsg;		//Use the GLOBAL Version of these variables instead of making them local
+            global $validForm, $eventDescriptionErrMsg;
             $eventDescriptionErrMsg = "";
 
             if($inEventDescription == "")
@@ -60,11 +60,11 @@ if(isset($_POST["submit"])) {
               $validForm = false;
               $eventDescriptionErrMsg = "Input cannot be blank";
             }
-          }//end validateName()
+          }
 
           function validateEventPresenter($inName)
           {
-            global $validForm, $eventPresenterErrMsg;		//Use the GLOBAL Version of these variables instead of making them local
+            global $validForm, $eventPresenterErrMsg;
             $eventPresenterErrMsg = "";
 
             if($inEventPresenter == "")
@@ -72,11 +72,11 @@ if(isset($_POST["submit"])) {
               $validForm = false;
               $eventPresenterErrMsg = "Input cannot be blank";
             }
-          }//end validateName()
+          }
 
           function validateEventDate($inDate)
           {
-            global $validForm, $eventDateErrMsg;		//Use the GLOBAL Version of these variables instead of making them local
+            global $validForm, $eventDateErrMsg;
             $eventDateErrMsg = "";
 
             if($inEventDate == "")
@@ -84,11 +84,11 @@ if(isset($_POST["submit"])) {
               $validForm = false;
               $eventDateErrMsg = "Date cannont be blank";
             }
-          }//end validateName()
+          }
 
           function validateEventTime($inDate)
           {
-            global $validForm, $eventTimeErrMsg;		//Use the GLOBAL Version of these variables instead of making them local
+            global $validForm, $eventTimeErrMsg;
             $eventTimeErrMsg = "";
 
             if($inEventTime == "")
@@ -96,7 +96,7 @@ if(isset($_POST["submit"])) {
               $validForm = false;
               $eventTimeErrMsg = "Time cannont be blank";
             }
-          }//end validateName()
+          }
 
 
 
