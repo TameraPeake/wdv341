@@ -6,7 +6,7 @@
     //5. It will bind the parameters to the Prepared Statement
     //6. It will execute the prepared statement to insert into the database
     //7. It will display a success/failure message to the user
-
+require 'DBconnect.php';
 $inEventName = "";
 $inEventDescription = "";
 $inEventPresenter = "";
@@ -20,17 +20,19 @@ $eventPresenterErrMsg = "";
 $eventDateErrMsg = "";
 $eventTimeErrMsg = "";
 
-$validForm = false;
+$validForm = true;
+$inTest = "";
 
 if(isset($_POST["submit"])) {
+  echo "<h1>Thank you for your order!</h1>";
+  $inTest = "It's working";
+  echo $inTest;
   $inEventName= $_POST["eventName"];
   $inEventDescription= $_POST["eventDescription"];
   $inEventPresenter=$_POST["eventPresenter"];
   $inEventDate=$_POST["eventDate"];
   $inEventTime=$_POST["eventTime"];
 
-
-      echo "<h1>Thank you for your order!</h1>";
       echo "<p>eventName: $inEventName";
       echo "<p>eventDescription: $inEventDescription";
       echo "<p>eventPresenter: $inEventPresenter";
@@ -38,78 +40,9 @@ if(isset($_POST["submit"])) {
       echo "<p>eventTime: $inEventTime";
 
 
-          function validateEventName($inName)
-          {
-            global $validForm, $eventNameErrMsg;
-            $eventNameErrMsg = "";
-
-            if($inEventName == "")
-            {
-              $validForm = false;
-              $eventNameErrMsg = "Name cannot be blank";
-            }
-          }
-
-          function validateEventDescription($inName)
-          {
-            global $validForm, $eventDescriptionErrMsg;
-            $eventDescriptionErrMsg = "";
-
-            if($inEventDescription == "")
-            {
-              $validForm = false;
-              $eventDescriptionErrMsg = "Input cannot be blank";
-            }
-          }
-
-          function validateEventPresenter($inName)
-          {
-            global $validForm, $eventPresenterErrMsg;
-            $eventPresenterErrMsg = "";
-
-            if($inEventPresenter == "")
-            {
-              $validForm = false;
-              $eventPresenterErrMsg = "Input cannot be blank";
-            }
-          }
-
-          function validateEventDate($inDate)
-          {
-            global $validForm, $eventDateErrMsg;
-            $eventDateErrMsg = "";
-
-            if($inEventDate == "")
-            {
-              $validForm = false;
-              $eventDateErrMsg = "Date cannont be blank";
-            }
-          }
-
-          function validateEventTime($inDate)
-          {
-            global $validForm, $eventTimeErrMsg;
-            $eventTimeErrMsg = "";
-
-            if($inEventTime == "")
-            {
-              $validForm = false;
-              $eventTimeErrMsg = "Time cannont be blank";
-            }
-          }
-
-
-
-
-  validateEventName($inEventName);
-  validateEventDescription($inEventDescription);
-  validateEventPresenter($inEventPresenter);
-  validateEventDate($inEventDate);
-  validateEventTime($inEventTime);
-
   if($validForm) {
         //step 1.
-          require 'DBconnect.php';  //this pulls the file DBconnect file into the page. it accesses and runs it
+            //this pulls the file DBconnect file into the page. it accesses and runs it
       try {
          //step 2. //We hardcoded the data in this instance
 
@@ -144,10 +77,15 @@ if(isset($_POST["submit"])) {
       echo "Card didn't go through";
     }
   }
-}
-
-else {
-    echo "<h1>something went wrong</h1>";
+  else {
+      echo "<h1>something went wrong</h1>";
+      $eventNameErrMsg= "test";
+      $eventDescriptionErrMsg = "wrong";
+      $eventPresenterErrMsg = "wrongTest";
+      $eventDateErrMsg = "wrong2";
+      $eventTimeErrMsg = "wrong3";
+      $validForm = false;
+  }
 }
 $conn = null;
 ?>
@@ -170,26 +108,26 @@ $conn = null;
 </head>
 <body>
     <h1>Events Form</h1>
-      <form id="form1" name="form1" method="post" action="processEvents.php">
+      <form id="form1" name="form1" method="post" action="processEvents.php" value="events">
         /*this will send the information to the php page*/
         <p>Event Name:
-          <input type="text" name="eventName" id="eventName" value=" <?php echo $inEventName ?>">
+          <input type="text" name="eventName" id="eventName" value="<?php echo $inEventName ?>">
           <span><?php echo $eventNameErrMsg; ?></span>
         </p>
         <p>Event Description:
-          <input type="text" name="eventDescription" id="eventDescription" value=" <?php echo $inEventDescription ?>">
+          <input type="text" name="eventDescription" id="eventDescription" value="<?php echo $inEventDescription ?>">
           <span><?php echo $eventDescriptionErrMsg; ?></span>
         </p>
         <p>Event Presenter:
-          <input type="text" name="eventPresenter" id="eventPresenter" value=" <?php echo $inEventPresenter ?>">
+          <input type="text" name="eventPresenter" id="eventPresenter" value="<?php echo $inEventPresenter ?>">
           <span><?php echo $eventPresenterErrMsg; ?></span>
         </p>
         <p>Event Date:
-          <input type="text" name="eventDate" id="eventDate" value=" <?php echo $inEventDate ?>">
+          <input type="text" name="eventDate" id="eventDate" value="<?php echo $inEventDate ?>">
           <span><?php echo $eventDateErrMsg; ?></span>
         </p>
         <p>Event Time:
-          <input type="text" name="eventTime" id="eventTime" value=" <?php echo $inEventTime ?>">
+          <input type="text" name="eventTime" id="eventTime" value="<?php echo $inEventTime ?>">
           <span><?php echo $eventTimeErrMsg; ?></span>
         </p>
       <!--example of honeypot-->
