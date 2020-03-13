@@ -21,12 +21,8 @@ $eventDateErrMsg = "";
 $eventTimeErrMsg = "";
 
 $validForm = true;
-$inTest = "";
 
-if(isset($_POST["submit"])) {
-  echo "<h1>Thank you for your order!</h1>";
-  $inTest = "It's working";
-  echo $inTest;
+if(isset($_POST["button"])) {
   $inEventName= $_POST["eventName"];
   $inEventDescription= $_POST["eventDescription"];
   $inEventPresenter=$_POST["eventPresenter"];
@@ -40,7 +36,74 @@ if(isset($_POST["submit"])) {
       echo "<p>eventTime: $inEventTime";
 
 
+                function validateEventName($inName)
+                {
+                  global $validForm, $eventNameErrMsg;
+                  $eventNameErrMsg = "";
+
+                  if($inName == "")
+                  {
+                    $validForm = false;
+                    $eventNameErrMsg = "Name cannot be blank";
+                  }
+                }
+
+                function validateEventDescription($inName)
+                {
+                  global $validForm, $eventDescriptionErrMsg;
+                  $eventDescriptionErrMsg = "";
+
+                  if($inName == "")
+                  {
+                    $validForm = false;
+                    $eventDescriptionErrMsg = "Input cannot be blank";
+                  }
+                }
+
+                function validateEventPresenter($inName)
+                {
+                  global $validForm, $eventPresenterErrMsg;
+                  $eventPresenterErrMsg = "";
+
+                  if($inName == "")
+                  {
+                    $validForm = false;
+                    $eventPresenterErrMsg = "Input cannot be blank";
+                  }
+                }
+
+                function validateEventDate($inDate)
+                {
+                  global $validForm, $eventDateErrMsg;
+                  $eventDateErrMsg = "";
+
+                  if($inDate == "")
+                  {
+                    $validForm = false;
+                    $eventDateErrMsg = "Date cannont be blank";
+                  }
+                }
+
+                function validateEventTime($inTime)
+                {
+                  global $validForm, $eventTimeErrMsg;
+                  $eventTimeErrMsg = "";
+
+                  if($inTime == "")
+                  {
+                    $validForm = false;
+                    $eventTimeErrMsg = "Time cannont be blank";
+                  }
+                }
+
+        validateEventName($inEventName);
+        validateEventDescription($inEventDescription);
+        validateEventPresenter($inEventPresenter);
+        validateEventDate($inEventDate);
+        validateEventTime($inEventTime);
+
   if($validForm) {
+      echo "<h1>Thank you for your order!</h1>";
         //step 1.
             //this pulls the file DBconnect file into the page. it accesses and runs it
       try {
@@ -79,11 +142,6 @@ if(isset($_POST["submit"])) {
   }
   else {
       echo "<h1>something went wrong</h1>";
-      $eventNameErrMsg= "test";
-      $eventDescriptionErrMsg = "wrong";
-      $eventPresenterErrMsg = "wrongTest";
-      $eventDateErrMsg = "wrong2";
-      $eventTimeErrMsg = "wrong3";
       $validForm = false;
   }
 }
