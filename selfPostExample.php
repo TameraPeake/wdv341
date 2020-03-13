@@ -10,8 +10,6 @@ require 'dbConnect.php';
   $inProdPriceErrMsg = "";
   $inProdRadioErrMsg = "";
 
-  $inTest = "It's working";
-  echo $_POST[$inTest];
   if(isset($_POST["prod_submit"]))
   {
     echo "<h1> Thank you for submitting the form!</h1>";
