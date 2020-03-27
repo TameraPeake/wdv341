@@ -29,6 +29,37 @@ $inRobotest = "";
 $submitConfirm = "";
 
 
+//error messages
+
+$emailToLoginErrMsg = "";
+
+$firstNameErrMsg = "";
+
+$lastNameErrMsg = "";
+
+$programErrMsg = "";
+
+$program2ErrMsg = "";
+
+$websiteAddressErrMsg = "";
+
+$emailErrMsg = "";
+
+$linkedInErrMsg = "";
+
+$hometownErrMsg = "";
+
+$careerGoalsErrMsg = "";
+
+$threeWordsErrMsg = "";
+
+$inRobotestErrMsg = "";
+
+$submitConfirmErrMsg = "";
+
+
+$validForm = true;
+
 if(isset($_POST["submitBio"])){
 
 	echo("<p>this submit is working</p>");
@@ -88,9 +119,284 @@ if(isset($_POST["submitBio"])){
 	echo("$threeWords");
 
 	echo("$inRobotest");
+
+
+
+
+
+$validForm = true;
+
+
+function validateLogin($inName)
+		{
+			global $validForm, $emailToLogin, $emailToLoginErrMsg;
+			$emailToLoginErrMsg = "";
+			$inName = trim($inName);
+			if($inName == "")
+			{
+				$validForm = false;
+				$emailToLoginErrMsg = "Please enter a login email address";
+			}
+
+			elseif (!filter_var($inName, FILTER_VALIDATE_EMAIL)) {
+				$validForm = false;
+				$emailToLoginErrMsg = "Please enter a valid login email address";
+			}
+		}
+function validateFirstName($inName)
+							{
+								global $validForm, $firstNameErrMsg;
+								$firstNameErrMsg = "";
+								$inName = trim($inName);
+								if($inName == "")
+								{
+									$validForm = false;
+									$firstNameErrMsg = "Name cannot be blank";
+									echo "I'm here three!";
+								}
+								elseif (!preg_match("/^[a-zA-Z0-9 ]*$/", $inName))
+								{
+									$validForm = false;
+									$firstNameErrMsg = "No special characters";
+								}
+							}
+function validateLastName($inName)
+	{
+		global $validForm, $lastNameErrMsg;
+		$lastNameErrMsg = "";
+		$inName = trim($inName);
+		if($inName == "")
+		{
+			$validForm = false;
+			$lastNameErrMsg = "Name cannot be blank";
+			echo "I'm here three!";
+		}
+		elseif (!preg_match("/^[a-zA-Z0-9 ]*$/", $inName))
+		{
+			$validForm = false;
+			$lastNameErrMsg = "No special characters";
+		}
+	}
+
+function validateProgram($inName)
+	{
+		global $validForm, $programErrMsg;
+		$programErrMsg = "";
+		if($inName == "default")
+		{
+			$validForm = false;
+			$programErrMsg = "Choose a program";
+		}
+	}
+
+function validateProgram2($inName)
+		{
+			global $validForm, $program2ErrMsg;
+			$program2ErrMsg = "";
+			if($inName == "none")
+			{
+				$validForm = false;
+				$program2ErrMsg = "Choose a program";
+			}
+		}
+function validateWebsiteAddress($inName)
+		{
+			global $validForm, $websiteAddressErrMsg;
+			$websiteAddressErrMsg = "";
+			if($inName == "")
+			{
+				$validForm = false;
+				$websiteAddressErrMsg = "Please enter a website address";
+			}
+
+			elseif (!filter_var($inName, FILTER_VALIDATE_URL)) {
+				$validForm = false;
+				$websiteAddressErrMsg = "Please enter a valid website address";
+			}
+		}
+function validateEmail($inName)
+		{
+			global $validForm, $emailErrMsg;
+			$emailErrMsg = "";
+			if($inName == "")
+			{
+				$validForm = false;
+				$emailErrMsg = "Please enter a email address";
+			}
+
+			elseif (!filter_var($inName, FILTER_VALIDATE_EMAIL)) {
+				$validForm = false;
+				$emailErrMsg = "Please enter a valid email address";
+			}
+		}
+
+function validateLinkedIn($inName)
+		{
+			global $validForm, $linkedInErrMsg;
+			$linkedInErrMsg = "";
+			if($inName == "")
+			{
+				$validForm = false;
+				$linkedInErrMsg = "Please enter a LinkedIn URL";
+			}
+
+			elseif (!preg_match("/^https?:\\/\\/[a-z]{2,3}\\.linkedin\\.com\\/.*$/", $inName))
+			{
+				$validForm = false;
+				$linkedInErrMsg = "Please enter a valid LinkedIn URL";
+			}
+		}
+function validateHometown($inName)
+	{
+		global $validForm, $hometownErrMsg;
+		$hometownErrMsg = "";
+		$inName = trim($inName);
+		if($inName == "")
+		{
+			$validForm = false;
+			$hometownErrMsg = "Name cannot be blank";
+			echo "I'm here three!";
+		}
+		elseif (!preg_match("/^[a-zA-Z0-9,V ]*$/", $inName))
+		{
+			$validForm = false;
+			$hometownErrMsg = "No special characters";
+		}
+	}
+
+	function validateCareerGoals($inName)
+		{
+				//valid three-words should include only numbers, letters, spaces, and basic punctuation
+				global $validForm, $careerGoalsErrMsg; //Use the GLOBAL Version of these variables instead of making them local
+				$careerGoalsErrMsg = ""; //Clear the error message.
+				$inName= trim($inName);
+
+				if(empty($inName))
+				{
+						$validForm = false; //Invalid name so the form is invalid
+						$careerGoalsErrMsg = "You cannot leave this section blank"; //Error message for this validation
+				}
+				elseif ( $inName !== htmlspecialchars($inName))
+				{
+					$validForm = false; //Invalid name so the form is invalid
+					$careerGoalsErrMsg = "Letters, numbers,  and basic punctuation only " ; //Error message for this validation
+				}
+				else{
+				//replace commas, double spaces
+					$a = $inName;
+					$a = str_replace("," , " ",$a );
+					$lastCount=0;
+
+				while ($lastCount != strlen($a))
+				{
+					$lastCount = strlen($a);
+					$a =  str_replace("  "," ",$a);
+				}
+				//Convert space delimited string to array
+				$pieces = explode(" ", $a);
+				//print_r($pieces);
+
+			}
+		}
+function validateThreeWords($inName)
+	{
+			//valid three-words should include only numbers, letters, spaces, and basic punctuation
+			global $validForm, $threeWordsErrMsg; //Use the GLOBAL Version of these variables instead of making them local
+			$threeWordsErrMsg = ""; //Clear the error message.
+			$inName= trim($inName);
+
+			if(empty($inName))
+			{
+					$validForm = false; //Invalid name so the form is invalid
+					$threeWordsErrMsg = "Three word description is required"; //Error message for this validation
+			}
+			elseif ( $inName !== htmlspecialchars($inName))
+			{
+				$validForm = false; //Invalid name so the form is invalid
+				$threeWordsErrMsg = "Letters numbers,  and basic punctuation only " ; //Error message for this validation
+			}
+			else{
+			//replace commas, double spaces
+				$a = $inName;
+				$a = str_replace("," , " ",$a );
+				$lastCount=0;
+
+			while ($lastCount != strlen($a))
+			{
+				$lastCount = strlen($a);
+				$a =  str_replace("  "," ",$a);
+			}
+			//Convert space delimited string to array
+			$pieces = explode(" ", $a);
+			//print_r($pieces);
+
+			//make sure that there are three adjectives
+			if (count($pieces) !== 3)
+			{
+				$validForm = false; //Invalid name so the form is invalid
+				$threeWordsErrMsg = "Three word description is required"; //Error message for this validation
+			}
+		}
+	}
+validateLogin($emailToLogin);
+	echo $emailToLoginErrMsg;
+validateFirstName($firstName);
+validateLastName($lastName);
+validateProgram($program);
+validateProgram2($program2);
+validateWebsiteAddress($websiteAddress);
+validateEmail($email);
+validateLinkedIn($linkedIn);
+validateHometown($hometown);
+validateCareerGoals($careerGoals);
+validateThreeWords($threeWords);
 }
 
 //echo("<p>test</p>");
+
+
+/*
+
+ Input Field validations.
+
+validateFirstName
+	// valid first name should only include letters, numbers, and spaces
+	// ... must be present
+
+
+validateLastName
+	// valid last name should only include letters, numbers and spaces
+	// ... must be present
+
+validateProgram
+	//valid program must not be default options
+
+validateWebsiteAddress
+	//valid URL format
+
+validateWebsiteAddress2
+	//valid URL format
+
+validateLinkedIn
+	//valid URL to linkedin.com
+
+validateEmail
+	//valid email should be in a proper format
+	//Matches: bob@aol.com | bob@wrox.co.uk | bob@domain.info |123@123.123
+	//Non-Matches: a@b | notanemail | bob@@.
+
+validateHometown
+	// valid name should only include letters, numbers, spaces, and commas
+	// ... must be present
+
+validateCareerGoals
+	//valid career goals should include only numbers, letters, spaces, and basic punctuation
+
+validateThreeWords
+	//valid three-words should include only numbers, letters, spaces, and basic punctuation
+
+*/
+
 
 ?>
 <!DOCTYPE html>
@@ -313,54 +619,56 @@ validateThreeWords
 
 		<table>
 		<tr>
-		<td>Login Email:<br> <input type="text" id="emailToLogin" name="emailToLogin" value="<?php echo("$emailToLogin"); ?>"/></td>
+		<td>Login Email:<br> <input type="text" id="emailToLogin" name="emailToLogin" value="<?php echo("$emailToLogin"); ?>"/><span class="error"><?php echo("$emailToLoginErrMsg");?></span></td>
 		</tr>
 		<tr>
-		<td>First Name:<br> <input type="text" id="firstName" name="firstName" value=" <?php echo("$firstName"); ?>"/><br><span class="error" id="firstNameError"></span></td>
+		<td>First Name:<br> <input type="text" id="firstName" name="firstName" value=" <?php echo("$firstName"); ?>"/><br><span class="error" id="firstNameError"><?php echo("$firstNameErrMsg");?></span></td>
 		</tr>
 		<tr>
-		<td>Last Name:<br> <input type="text" id="lastName" name="lastName" value="<?php echo("$lastName"); ?>" /><br><span class="error" id="lastNameError"></span></td>
+		<td>Last Name:<br> <input type="text" id="lastName" name="lastName" value="<?php echo("$lastName"); ?>" /><br><span class="error" id="lastNameError"><?php echo("$lastNameErrMsg");?></span></td>
 		</tr>
 		<tr>
 		<td >Program:<br> <select id="program" name="program">
 
-				<option value="default"<?php if($program == "default"){echo("selected");}?></optio>>---Select Your Program---</option>
+				<option value="default"<?php if($program == "default"){echo("selected");}?></option>>---Select Your Program---</option>
 				<option value="animation" <?php if($program == "animation"){echo("selected");}?> >Animation</option>
 				<option value="graphicDesign" <?php if($program == "graphicDesign"){echo("selected");}?>>Graphic Design</option>
 				<option value="photography" <?php if($program == "photography"){echo("selected");}?>>Photography</option>
 				<option value="videoProduction" <?php if($program == "videoProduction"){echo("selected");}?>>Video Production</option>
 				<option value="webDevelopment" <?php if($program == "webDevelopment"){echo("selected");}?>>Web Development</option>
 			</select><br><span class="error" id="programError"></span><td>
+			<span class="error"><?php echo("$programErrMsg");?></span>
 		</tr>
 		<tr>
 		<td >Secondary Program:<br> <select id="program2" name="program2">
-				<option value="none"<?php if($program == "none"){echo("selected");}?> >---No Secondary Program---</option>
-				<option value="animation" <?php if($program == "animation"){echo("selected");}?> >Animation</option>
-				<option value="graphicDesign" <?php if($program == "graphicDesign"){echo("selected");}?> >Graphic Design</option>
-				<option value="photography" <?php if($program == "photography"){echo("selected");}?> >Photography</option>
-				<option value="videoProduction" <?php if($program == "videoProduction"){echo("selected");}?>>Video Production</option>
-				<option value="webDevelopment" <?php if($program == "webDevelopment"){echo("selected");}?> >Web Development</option>
+				<option value="none"<?php if($program2 == "none"){echo("selected");}?> >---No Secondary Program---</option>
+				<option value="animation" <?php if($program2 == "animation"){echo("selected");}?> >Animation</option>
+				<option value="graphicDesign" <?php if($program2 == "graphicDesign"){echo("selected");}?> >Graphic Design</option>
+				<option value="photography" <?php if($program2 == "photography"){echo("selected");}?> >Photography</option>
+				<option value="videoProduction" <?php if($program2 == "videoProduction"){echo("selected");}?>>Video Production</option>
+				<option value="webDevelopment" <?php if($program2 == "webDevelopment"){echo("selected");}?> >Web Development</option>
 			</select><br><span class="error" id="program2Error"></span><td>
+			<span class="error"><?php echo("$program2ErrMsg");?></span>
 		</tr>
 		<tr>
-		<td>Website Address:<br> <input type="text" id="websiteAddress" name="websiteAddress" value="<?php echo("$websiteAddress"); ?>" /><br><span class="error" id="websiteAddressError"></span></td>
+		<td>Website Address:<br> <input type="text" id="websiteAddress" name="websiteAddress" value="<?php echo("$websiteAddress"); ?>" /><br><span class="error" id="websiteAddressError"><?php echo("$websiteAddressErrMsg");?></span></td>
 		</tr>
 		<tr>
-		<td>Personal Email:<br><input type="text" id="email" name="email" value="<?php echo("$email"); ?>"/><br><span class="error" id="emailError"></span></td>
+		<td>Personal Email:<br><input type="text" id="email" name="email" value="<?php echo("$email"); ?>"/><br><span class="error" id="emailError"><?php echo("$emailErrMsg");?></span></td>
 		</tr>
 		<tr>
-		<td>LinkedIn Profile:<br><input type="text" id="linkedIn" name="linkedIn" value="<?php echo("$linkedIn"); ?>" /><br><span class="error" id="linkedInError"></span></td>
+		<td>LinkedIn Profile:<br><input type="text" id="linkedIn" name="linkedIn" value="<?php echo("$linkedIn"); ?>" /><br><span class="error" id="linkedInError"><?php echo("$linkedInErrMsg");?></span></td>
 		<tr>
 		<td><span class="secondWeb">Secondary Website Address (git repository, etc.):<br> <input type="text" id="websiteAddress2" name="websiteAddress2" value=""/><br><span class="error" id="websiteAddress2Error"></span></span></td>
 		</tr>
 		<tr>
-		<td>Hometown:<br> <input type="text" id="hometown" name="hometown" value="<?php echo("$hometown"); ?>" /><br><span class="error" id="hometownError"></span></td>
+		<td>Hometown:<br> <input type="text" id="hometown" name="hometown" value="<?php echo("$hometown"); ?>" /><br><span class="error" id="hometownError"><?php echo("$hometownErrMsg");?></span></td>
 		</tr>
 		<tr>
-		<td>Career Goals:<br> <textarea id="careerGoals" name="careerGoals"> <?php echo("$careerGoals"); ?></textarea><br><span class="error" id="careerGoalsError"></span></td>
+		<td>Career Goals:<br> <textarea id="careerGoals" name="careerGoals"> <?php echo("$careerGoals"); ?></textarea><br><span class="error" id="careerGoalsError"><?php echo("$careerGoalsErrMsg");?></span></td>
 		</tr>
 		<tr>
-		<td>3 Words that Describe You:<br> <input type="text" id="threeWords" name="threeWords" value="<?php echo("$threeWords"); ?>" /><br><span class="error" id="threeWordsError"></span></td>
+		<td>3 Words that Describe You:<br> <input type="text" id="threeWords" name="threeWords" value="<?php echo("$threeWords"); ?>" /><br><span class="error" id="threeWordsError"><?php echo("$threeWordsErrMsg");?></span></td>
 		<p class="robotic" id="pot">
 			<label>Leave Blank</label>
 			<input type="hidden" name="inRobotest" id="inRobotest" class="inRobotest" />
