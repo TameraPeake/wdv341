@@ -1,6 +1,33 @@
 <?php
     require 'dbConnect.php';
 
+  $eventID= "";
+  $eventName= "";
+  $eventDescription= "";
+  $eventPresenter= "";
+  $eventDate= "";
+  $eventTime= "";
+
+  $eventIDErrMsg= "";
+  $eventNameErrMsg= "";
+  $eventDescriptionErrMsg= "";
+  $eventPresenterErrMsg= "";
+  $eventDateErrMsg= "";
+  $eventTimeErrMsg= "";
+
+  $validForm = true;
+
+  if(isset($_POST["event_submit"])) {
+    echo "Thanks for posting";
+
+    $eventID = $_POST["eventID"];
+    $eventName = $_POST["eventName"];
+    $eventDescription = $_POST["eventDescription"];
+    $eventPresenter = $_POST["eventPresenter"];
+    $eventDate = $_POST["eventDate"];
+    $eventTime = $_POST["eventTime"];
+  }
+
   try {
 
     $sql = "SELECT ";
@@ -58,6 +85,44 @@
   <main>
 
       <h1>Display Available Events</h1>
+
+      <form id="form1" name="form1" method="post" action="SelectEvents.php">
+        /*this will send the information to the php page*/
+        <p>Event ID:
+          <input type="text" name="eventID" id="eventID" value="<?php echo $eventID ?>"/>
+          <span><?php echo $eventIDErrMsg; ?></span>
+        </p>
+        <p>Event Name:
+          <input type="text" name="eventName" id="eventName" value="<?php echo $eventName ?>"/>
+          <span><?php echo $eventNameErrMsg; ?></span>
+        </p>
+        <p>Event Description:
+          <input type="text" name="eventDescription" id="eventDescription" value="<?php echo $eventDescription ?>"/>
+          <span><?php echo $eventDescriptionErrMsg; ?></span>
+        </p>
+        <p>Event Presenter:
+          <input type="text" name="eventPresenter" id="eventPresenter" value="<?php echo $eventPresenter ?>"/>
+          <span><?php echo $eventPresenterErrMsg; ?></span>
+        </p>
+        <p>Event Date:
+          <input type="text" name="eventDate" id="eventDate" value="<?php echo $eventDate ?>"/>
+          <span><?php echo $eventDateErrMsg; ?></span>
+        </p>
+        <p>Event Time:
+          <input type="text" name="eventTime" id="eventTime" value="<?php echo $eventTime ?>"/>
+          <span><?php echo $eventTimeErrMsg; ?></span>
+        </p>
+      <!--example of honeypot-->
+        <span id="doubleCheck">
+            <p>Middle Name:
+              <input type="text" name="middleName" id="middleName"/>
+            </p>
+        </span>
+        <p>
+          <input type="submit" name="event_submit" id="event_submit" value="Submit" />
+          <input type="reset" name="reset" id="button2" value="Reset" />
+        </p>
+      </form>
 
       <?php
       while($row=$stmt->fetch(PDO::FETCH_ASSOC)) {
