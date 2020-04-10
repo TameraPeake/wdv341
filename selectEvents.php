@@ -1,39 +1,6 @@
 <?php
     require 'dbConnect.php';
-/*
-    $eventID= "";
-    $eventName= "";
-    $eventDescription= "";
-    $eventPresenter= "";
-    $eventDate= "";
-    $eventTime= "";
 
-    $eventIDErrMsg= "";
-    $eventNameErrMsg= "";
-    $eventDescriptionErrMsg= "";
-    $eventPresenterErrMsg= "";
-    $eventDateErrMsg= "";
-    $eventTimeErrMsg= "";
-
-    $validForm = true;
-
-    if(isset($_POST["event_submit"])) {
-      echo "Thanks for posting";
-
-      $eventID = $_POST["eventID"];
-      $eventName = $_POST["eventName"];
-      $eventDescription = $_POST["eventDescription"];
-      $eventPresenter = $_POST["eventPresenter"];
-      $eventDate = $_POST["eventDate"];
-      $eventTime = $_POST["eventTime"];
-
-    }
-    else {
-
-    }
-
-  if($validForm) {
-    */
     try {
 
       $sql = "SELECT ";
@@ -42,11 +9,10 @@
       $sql .= "event_description, ";
       $sql .= "event_presenter, ";
       $sql .= "event_date, ";
-      $sql .= "event_time, ";
+      $sql .= "event_time ";
       $sql .= "FROM wdv341_event";
 
-      $sql .= "SELECT event_id, event_name, event_description, event_presenter, event_date, event_time FROM wdv341_event";
-
+      echo "<p>$sql</p>";
       $stmt = $conn->prepare($sql);
 
       //EXECUTE the prepared statement
@@ -57,8 +23,8 @@
     }
 
     catch(PDOException $e) {
-      echo "something's wrong";
-/*
+      echo $message;
+
       $message = "There has been a problem. The system administrator has been contacted. Please try again later.";
 
   	  error_log($e->getMessage());			//Delivers a developer defined error message to the PHP log file at c:\xampp/php\logs\php_error_log
@@ -68,11 +34,7 @@
   	  //Clean up any variables or connections that have been left hanging by this error.
 
   	  header('Location: files/505_error_response_page.php');	//sends control to a User friendly page
-      */
-
     }
-    /*
-  }*/
  ?>
 
 <!doctype html>
@@ -82,9 +44,23 @@
   <title>SelectEvents.php</title>
 
 <style>
-  .eventBlock, .row {
+  .eventBlock, th, td {
     border: 1px solid black;
   }
+
+  .eventBlock {
+    width:100%;
+  }
+
+  #doubleCheck {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 0;
+  width: 0;
+  z-i
+}
 </style>
 </head>
 <body>
@@ -132,6 +108,7 @@
       <?php
       while($row=$stmt->fetch(PDO::FETCH_ASSOC)) {
   ?>
+  <!--
       <div class="eventBlock">
         <div class="row">Event ID:
           <span class="eventId"><?php echo $row['event_name']; ?></span>
@@ -150,7 +127,23 @@
         </div>
 
       </div>
-
+-->
+<table class="eventBlock">
+  <tr>
+  <th>Event Name</th>
+  <th>Event Description</th>
+  <th>Event Date and Time</th>
+  <th>Event Presenter</th>
+  <th>Event ID</th>
+  </tr>
+  <tr>
+    <td><?php echo $row['event_name']; ?></td>
+    <td><?php echo $row['event_description']; ?></td>
+    <td><?php echo $row['event_date'] . " " . $row['event_time'] . "." ?></td>
+    <td><?php echo $row['event_presenter']; ?></td>
+    <td><?php echo $row['event_id']; ?></td>
+  </tr>
+</table>
       <?php
 }
   ?>
