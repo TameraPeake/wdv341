@@ -99,12 +99,12 @@
                   $postDate = date("m-d-Y", $eventDate);
                   $postMonth = date("m", $eventDate);
 
-                  //echo $postMonth. " ". $currentMonth;
                   //$dt = new DateTime(date("Y-m-d"));
                   $currentDate = strtotime(date("Y-m-d"));
                   $currentMonth = date('m');
 
-                  //echo $currentDate. " " .$secondRow;
+                  //echo $currentDate. " " .$postDate;
+                  //echo $postMonth. " ". $currentMonth;
                   if($eventDate > $currentDate) {
                     if ($postMonth == $currentMonth) {
                       ?>
@@ -146,7 +146,7 @@
                       <?php
                     }
                   }
-              
+
                       ?>
               </span>
             </div>
