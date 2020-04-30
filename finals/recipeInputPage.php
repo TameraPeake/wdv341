@@ -186,6 +186,7 @@ catch (PDOException $e){
 //Retrieve from the server
 
 
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -203,16 +204,30 @@ catch (PDOException $e){
   crossorigin="anonymous">
   </script>
   <script>
-  function loadRecipe(){
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        document.getElementById("recipeList").innerHTML = this.responseText;
+
+  function loadRecipe() {
+
+  fetch('recipeRecieve.php')
+   .then((res) => res.json())
+   .then((dataTwo) => {
+     var outputRecipe = dataTwo;
+        console.log(outputRecipe);
+     for(let i=0; i <= outputRecipe.length; i++) {
+       var recipeInfo = "<p> Recipe Name: " + outputRecipe[i].recipe_name + "<br>"
+                     + "Serving Size: " + outputRecipe[i].recipe_servingSize + "<br>"
+                     + "Ingredients: " + outputRecipe[i].recipe_ingredientsName + " x " + outputRecipe[i].recipe_ingredientsNumber + " " + outputRecipe[i].recipe_units + "<br>"
+                     + "Instructions: " + "<br>"
+                     + "Step 1: " + outputRecipe[i].recipe_instructions; + "</p>"
+
+        document.getElementById("recipeList").innerHTML+= recipeInfo;
       }
-    };
-    xhttp.open("GET", "recipeRecieve.php", true);
-    xhttp.send();
-  }
+   })
+
+   .catch(error => {
+     console.error(error);
+   });
+ }
+
   </script>
 <style>
   section {
