@@ -1,8 +1,14 @@
-<?php
+<?php         //new creates a new object
+require 'recipeContact.php';
+      $emailTest = new Emailer();
+      $emailTest->set_senderEmail("pet2433@tamerapeake.com");
+      echo $emailTest->get_senderEmail();
+      echo  $emailTest->sendEmail();
 
+/*
 class Emailer {
 
-  private $message = "Thank you for contacting Rife's Recipe's. We'll get back to you soon";
+  private $message = "";
   private $senderEmail ="pet2433@tamerapeake.com";
   private $recipientEmail ="";
   private $subject ="Rife's Recipe's Response";
@@ -52,11 +58,7 @@ class Emailer {
       $headers="From: <pet2433@tamerapeake.com>";
 
 
-      return mail($to,$subject,$message,$headers); 
-    }
-}
+      return mail($to,$subject,$message,$headers);
+    }*/
 
-
-
-
-?>
+   ?>
