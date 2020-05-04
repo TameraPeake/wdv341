@@ -8,17 +8,17 @@ session_start();
 $inUsername = "";
 $inPassword = "";
 $validuser="placeholder";
+$message="";
 
 $returnUserName = "";
 $returnUserPassword = "";
 
 if ($_SESSION['validuser']=="yes")			//is this already a valid user?
 	{
-		//User is already signed on.  Skip the rest.
-	//$message = "Welcome Back!";	//Create greeting for VIEW area
-  // echo $message;
- //session_unset();
-//session_destroy();
+	$message = "<h1>Welcome Back</h1>";
+  	echo $message;
+ 	//session_unset();
+	//session_destroy();
 	}
 else
 	{
@@ -29,7 +29,7 @@ else
        $inPassword = $_POST['password'];
 
 
-       $sql = "SELECT user_name, user_password FROM recipeloginlogout user WHERE user_name= ? and user_password = ?";
+       $sql = "SELECT user_name, user_password FROM recipeLoginLogout user WHERE user_name= ? and user_password = ?";
 
        echo "<p>$sql</p>";
 
@@ -51,9 +51,9 @@ else
   		{
           if($returnUserPassword==$inPassword)
           {
-    				$_SESSION['validuser'] = "yes";				//this is a valid user so set your SESSION variable
-    				$message = "Welcome Back!";
-            echo $message." ".$inUsername;
+    		$_SESSION['validuser'] = "yes";				//this is a valid user so set your SESSION variable
+    		$message = "<h1>Welcome";
+            echo $message." ".$inUsername."</h1>";
     				//Valid User can do the following things:
           }
 
@@ -130,7 +130,6 @@ if (isset($_POST['newUser']))
 foreach($_POST as $key => $value)		//This will loop through each name-value in the $_POST array
 {
 }*/
-  if ($_SESSION['validuser'] == "yes") {
 
 $inRecipeName = "";		//Get the value entered in the first name field
 $inSetServingSize = "";	//Get the value entered in the last name field
@@ -235,10 +234,10 @@ if(isset($_POST["submitButton"])){
 
 		  $sql = "SELECT ";
 		  $sql .= "recipe_name, ";
-			$sql .= "recipe_servingSize, ";
+		  $sql .= "recipe_servingSize, ";
 		  $sql .= "recipe_ingredientsName, ";
-			$sql .= "recipe_ingredientsNumber ";
-			$sql .= "recipe_units, ";
+		  $sql .= "recipe_ingredientsNumber ";
+		  $sql .= "recipe_units, ";
 		  $sql .= "recipe_instructions, ";
 		  $sql .= "FROM rifesrecipes";
 
@@ -292,78 +291,82 @@ if(isset($_POST["submitButton"])){
   <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Nunito" />
   <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Aclonica" />
 
-	<script
+<script>
   src="https://code.jquery.com/jquery-3.4.1.js"
   integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-  crossorigin="anonymous">
-	</script>
-  <script>
+  crossorigin="anonymous";
 
-  function loadRecipeList() {
+/*  $(document).ready(function() {
+    $("#recipeNameList").click(function() {
+        $("#hideRecipes").toggle();
+    });
+});*/
+</script>
+<script>
 
-  	var xmlhttp = new XMLHttpRequest();
-  	xmlhttp.onreadystatechange = function() {
-    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-    	var myObj = xmlhttp.responseText;
-			//console.log(xmlhttp.responseText);
-			var retrieveObject = JSON.parse(myObj);
-	    for(let i=0; i<retrieveObject.length;i++){
-	        document.getElementById("displayRecipes").innerHTML += "<option value=" + retrieveObject[i] + ">" + retrieveObject[i] + "</option>";
-    	}
+    function loadRecipeList() {
+
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                var myObj = xmlhttp.responseText;
+                //console.log(xmlhttp.responseText);
+                var retrieveObject = JSON.parse(myObj);
+                for (let i = 0; i < retrieveObject.length; i++) {
+                    document.getElementById("displayRecipes").innerHTML += "<option value=" + retrieveObject[i] + ">" + retrieveObject[i] + "</option>";
+                }
+            }
+        };
+        xmlhttp.open("GET", "recipeRecieve.php", true);
+        xmlhttp.send();
+        document.getElementById("displayRecipes").innerHTML = " ";
+       	document.querySelector('#hideRecipes').style.display="block";
     }
-  };
-  xmlhttp.open("GET", "recipeRecieve.php", true);
-  xmlhttp.send();
-	document.getElementById("displayRecipes").innerHTML =" ";
-}
 
 
 function showRecipe() {
-	var inValue = document.getElementById("displayRecipes").selectedIndex;
-	var xmlhttp = new XMLHttpRequest();
-	xmlhttp.onreadystatechange = function() {
-		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-			var fullObj = xmlhttp.responseText;
-			console.log(xmlhttp.responseText);
-			var retrieveFull = JSON.parse(fullObj);
+    var inValue = document.getElementById("displayRecipes").selectedIndex;
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            var fullObj = xmlhttp.responseText;
+            console.log(xmlhttp.responseText);
+            var retrieveFull = JSON.parse(fullObj);
 
-				document.getElementById("outRecipe").innerHTML = retrieveFull[inValue];
-		}
-	};
+            document.getElementById("outRecipe").innerHTML = "<h3>"+ retrieveFull[inValue] + "</h3>";
+        }
+    };
 
-	xmlhttp.open("GET", "recipeRecieveFull.php", true);
-	xmlhttp.send();
+    xmlhttp.open("GET", "recipeRecieveFull.php", true);
+    xmlhttp.send();
 
 }
 
 function cloneClick() {
-	var receiveClone = document.getElementById("ingredientsEnter");
-	var cln = receiveClone.cloneNode(true);
-	document.getElementById("outClonedIng").appendChild(cln);
+    var receiveClone = document.getElementById("ingredientsEnter");
+    var cln = receiveClone.cloneNode(true);
+    document.getElementById("outClonedIng").appendChild(cln);
 }
 
 function cloneClickInst() {
-	var receiveCloneInst = document.getElementById("instructionsEnter");
-	var clnInt = receiveCloneInst.cloneNode(true);
-	document.getElementById("outClonedInts").appendChild(clnInt);
+    var receiveCloneInst = document.getElementById("instructionsEnter");
+    var clnInt = receiveCloneInst.cloneNode(true);
+    document.getElementById("outClonedInts").appendChild(clnInt);
 
 }
 
-$(document).ready(function(){
-  $("#recipeNameList").click(function(){
-    $("#hideRecipes").toggle();
-  });
-
-/*	$("#cloneIngredients").click(function(){
-		$("#ingredientsEnter").clone().appendTo("outClonedIng");
-	});*/
-});
-
-
-function hideRecipeList() {
-    document.querySelector('#hideRecipes').style.display = "none";
+function hide() {
+   	document.querySelector('#hideRecipes').style.display = "none";
+	document.querySelector('#recipeInput').style.display="none";
 };
 
+function showAddRecipe() {
+	document.querySelector('#recipeInput').style.display="block";
+}
+/*
+function showRecipeList() {
+	document.querySelector('#hideRecipes').style.displlay="block";
+}*/
 </script>
 <style>
   section {
@@ -375,147 +378,157 @@ function hideRecipeList() {
 </style>
 
 </head>
-<body onload="hideRecipeList()">
-    <section id="recipeInput">
-      <h2>Enter Recipe Below</h2>
-        <form id="enterRecipe" name="enterRecipe" method="post" action="recipeInputPage.php" >
-          <p>Recipe Name:
-            <input type="text" name="recipeName" id="recipeName" value="<?php echo $inRecipeName; ?>"/>
-            <!--<span class="error"><?php echo("$inRecipeNameErrMsg");?></span>-->
-          </p>
-          <div>
-          <label for="setServingSize">Serving size:</label>
-          <select name="setServingSize">
-              <option value="">Choose one</option>
-              <option value="1 serving">1 Serving</option>/
-              <option value="1-2 servings">1-2 Servings</option>
-              <option value="3-4 servings">3-4 Servings</option>
-              <option value="6-8 servings">6-8 Servings</option>
-              <option value="9-12 servings">9-12 Servings</option>
-              <option value="12-16 servings">12-16 Servings</option>
-          </select>
-          </div>
-          <!--<span class="error"><?php echo("$inSetServingSizeErrMsg");?></span>-->
-            <p>Please Enter Ingredients:<br>
-							<span id="ingredientsEnter">
-									<br>
-		              <input type="text" name="ingredientName" id="ingredientName" value="">
-		              <span> X </span>
-		              <label for="setIngredientSize"></label>
-		              <select name="setIngredientSize" >
-		                <option value="">#</option>
-		                <option value="1/4">1/4</option>
-		                <option value="1/2">1/2</option>
-		                <option value="1/3">1/3</option>
-		                <option value="1">1</option>
-		                <option value="2">2</option>
-		                <option value="3">3</option>
-		                <option value="4">4</option>
-		                <option value="5">5</option>
-		                <option value="6">6</option>
-		              </select>
-		                <!--<span class="error"><?php echo("$inSetIngredientSizeErrMsg");?></span>-->
-		              <label for="setUnits"></label>
-		              <select name="setUnits" >
-		                <option value="">Units (Optional)</option>
-		                <option value="tsp">tsp</option>
-		                <option value="tbsp">tbsp</option>
-		                <option value="cup">cup</option>
-		                <option value="pint">pint</option>
-		                <option value="gallon">gallon</option>
-		                <option value="pinch">pinch</option>
-										<option value="none">-</option>
-		              </select>
-								<br>
-	            <!--<span class="error"><?php echo("$inSetUnitsErrMsg");?></span>-->
-							</span>
-							<br>
-							<div id="outClonedIng"></div>
-            </p>
-						<button type="button" id="cloneIngredients" onclick="cloneClick()">Add Ingredients</button>
-          </div>
-          <p>Instructions:
-            <br>
-						<span id="instructionsEnter">
-							<br>
-            	<input type="text" name="recipeInstructions" id="recipeInstructions" value="">
-							<br>
-						</span>
-					<br>
-					<div id="outClonedInts"></div>
-					<button type="button" onclick="cloneClickInst()" >Add Instructions</button>
-          </p>
-            <input type="submit" name="submitButton" id="submitButton" value="Submit" />
-            <input type="reset" name="resetButton" id="resetButton" value="Reset" />
-          </p>
-        </form>
-        <div id="msg">
-          <div>Errors:<br>
-            <span class="error"><?php echo $inRecipeNameErrMsg; ?></span><br>
-            <span class="error"><?php echo $inSetServingSizeErrMsg; ?></span><br>
-            <span class="error"><?php echo $inIngredientNameErrMsg; ?></span><br>
-            <span class="error"><?php echo $inSetIngredientSizeErrMsg ;?></span><br>
-						<span class="error"><?php echo $inRecipeInstructionsErrMsg ;?></span><br>
-          </div>
-    </section>
-    <section>
-          <p><?php echo $inRecipeName; ?></p>
-          <p><?php echo $inSetServingSize; ?></p>
-          <p><?php echo $inIngredientName; ?></p>
-          <p><?php echo $inSetIngredientSize; ?></p>
-          <p><?php echo $inSetUnits; ?></p>
-          <p><?php echo $inRecipeInstructions; ?></p>
-    </section>
-    <section>
-      <p>choose a recipe:</p>
-			<br>
-      <button type="button" id="recipeNameList" onclick="loadRecipeList()">click to load recipe list</button>
-			<p id="hideRecipes">
-				<select id="displayRecipes"></select>
-				<br>
-				<div id="outRecipe"></div>
-				<br>
-				<button type="button" onclick="showRecipe()">Submit choice</button>
-			</p>
-    </section>
-		<br>
-    <section>
-	    <div>
-	    	<button onclick="location.href = 'recipeContact.php';">Send us a message!</button>
-	    </div>
-    </section>
-		<br>
-    <section>
-      <div>
-        <form action="recipeInputPage.php" method="post">
-            <input type="submit" name="logout" id="logout" value="LOG OFF"/>
-        </form>
-      </div>
-    </section>
+<body onload="hide()">
 <?php
-  }
-  else {
+  if ($_SESSION['validuser'] == "yes") {
 ?>
-    <section>
-    <p>Login to Rife's Recipes</p>
-    <form action="recipeInputPage.php" method="post">
-      <div>Please login
-      <p>
-        <label for="username">Enter Your Username</label><br>
-        <input type="text" placeholder="Enter Username" name="username" id="username"required/><br>
-      </p>
-      <p>
-        <label for="password">Enter Your password</label><br>
-        <input type="password" placeholder="Enter Password" name="password" id="password"required/><br>
-      </p>
-      <p>
-        <input type="submit" name="login" id="login" value="Submit" />
-        <input type="reset" name="resetlogin" id="resetlogin" value="Reset" />
-      </p>
-    </section>
+<section>
+	<button type="button" onclick="showAddRecipe()">Add a new recipe?</button>
+</section>
+    <section id="recipeInput">
+       <h2>Enter Recipe Below</h2>
+       <form id="enterRecipe" name="enterRecipe" method="post" action="recipeInputPage.php">
+           <p>Recipe Name:
+               <input type="text" name="recipeName" id="recipeName" value="<?php echo $inRecipeName; ?>" />
+               <!--<span class="error"><?php echo("$inRecipeNameErrMsg");?></span>-->
+           </p>
+           <div>
+               <label for="setServingSize">Serving size:</label>
+               <select name="setServingSize">
+                   <option value="">Choose one</option>
+                   <option value="1 serving">1 Serving</option>/
+                   <option value="1-2 servings">1-2 Servings</option>
+                   <option value="3-4 servings">3-4 Servings</option>
+                   <option value="6-8 servings">6-8 Servings</option>
+                   <option value="9-12 servings">9-12 Servings</option>
+                   <option value="12-16 servings">12-16 Servings</option>
+               </select>
+           </div>
+           <!--<span class="error"><?php echo("$inSetServingSizeErrMsg");?></span>-->
+           <p>Please Enter Ingredients:<br>
+               <span id="ingredientsEnter">
+                   <br>
+                   <input type="text" name="ingredientName" id="ingredientName" value="">
+                   <span> X </span>
+                   <label for="setIngredientSize"></label>
+                   <select name="setIngredientSize">
+                       <option value="">#</option>
+                       <option value="1/4">1/4</option>
+                       <option value="1/2">1/2</option>
+                       <option value="1/3">1/3</option>
+                       <option value="1">1</option>
+                       <option value="2">2</option>
+                       <option value="3">3</option>
+                       <option value="4">4</option>
+                       <option value="5">5</option>
+                       <option value="6">6</option>
+                   </select>
+                   <!--<span class="error"><?php echo("$inSetIngredientSizeErrMsg");?></span>-->
+                   <label for="setUnits"></label>
+                   <select name="setUnits">
+                       <option value="">Units (Optional)</option>
+                       <option value="tsp">tsp</option>
+                       <option value="tbsp">tbsp</option>
+                       <option value="cup">cup</option>
+                       <option value="pint">pint</option>
+                       <option value="gallon">gallon</option>
+                       <option value="pinch">pinch</option>
+                       <option value="none">-</option>
+                   </select>
+                   <br>
+                   <!--<span class="error"><?php echo("$inSetUnitsErrMsg");?></span>-->
+               </span>
+               <br>
+           <div id="outClonedIng"></div>
+           </p>
+           <button type="button" id="cloneIngredients" onclick="cloneClick()">Add Ingredients</button>
+           </div>
+           <p>Instructions:
+               <br>
+               <span id="instructionsEnter">
+                   <br>
+                   <input type="text" name="recipeInstructions" id="recipeInstructions" value="">
+                   <br>
+               </span>
+               <br>
+           <div id="outClonedInts"></div>
+           <button type="button" onclick="cloneClickInst()">Add Instructions</button>
+           </p>
+           <input type="submit" name="submitButton" id="submitButton" value="Submit" />
+           <input type="reset" name="resetButton" id="resetButton" value="Reset" />
+           </p>
+       </form>
+       <div id="msg">
+           <div>Errors:<br>
+               <span class="error"><?php echo $inRecipeNameErrMsg; ?></span><br>
+               <span class="error"><?php echo $inSetServingSizeErrMsg; ?></span><br>
+               <span class="error"><?php echo $inIngredientNameErrMsg; ?></span><br>
+               <span class="error"><?php echo $inSetIngredientSizeErrMsg ;?></span><br>
+               <span class="error"><?php echo $inRecipeInstructionsErrMsg ;?></span><br>
+           </div>
+   </section>
+   <section>
+       <p><?php echo $inRecipeName; ?></p>
+       <p><?php echo $inSetServingSize; ?></p>
+       <p><?php echo $inIngredientName; ?></p>
+       <p><?php echo $inSetIngredientSize; ?></p>
+       <p><?php echo $inSetUnits; ?></p>
+       <p><?php echo $inRecipeInstructions; ?></p>
+   </section>
+   <section>
+       <p>choose a recipe:</p>
+       <br>
+       <button type="button" id="recipeNameList" onclick="loadRecipeList()">click to load recipe list</button>
+       <div id="hideRecipes">
+       	   <br>
+           <select id="displayRecipes"></select>
+           <br><br>
+       	   <div id="outRecipe"></div>
+           <br>
+           <button type="button" onclick="showRecipe()">Submit choice</button>
+       </div>
+   </section>
+   <br>
+   <section>
+       <div>
+           <button onclick="location.href = 'recipeContact.php';">Send us a message!</button>
+       </div>
+   </section>
+   <br>
+   <section>
+       <div>
+           <form action="recipeInputPage.php" method="post">
+               <input type="submit" name="logout" id="logout" value="LOG OFF" />
+           </form>
+       </div>
+   </section>
+   <?php
+  	}
+  else {
+   ?>
+   <section>
+       <p>Login to Rifes Recipes</p>
+       <form action="recipeInputPage.php" method="post">
+           <div>Please login
+               <p>
+                   <label for="username">Enter Your Username</label><br>
+                   <input type="text" placeholder="Enter Username" name="username" id="username" required /><br>
+               </p>
+               <p>
+                   <label for="password">Enter Your password</label><br>
+                   <input type="password" placeholder="Enter Password" name="password" id="password" required /><br>
+               </p>
+               <p>
+                   <input type="submit" name="login" id="login" value="Submit" />
+                   <input type="reset" name="resetlogin" id="resetlogin" value="Reset" />
+               </p>
+   </section>
 
-    <button id="newUser">New User</button>
-<!--
+   <button id="newUser">New User</button>
+   <?php
+     }
+	?>
+   <!--
     <section id="newSection">
       <p>Enter a new username and password</p>
       <form action="recipeLogin.php" method="post">
@@ -534,8 +547,5 @@ function hideRecipeList() {
       </form>
     </section>
   -->
-<?php
-  }
-?>
 </body>
 </html>
