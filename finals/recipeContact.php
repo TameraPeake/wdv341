@@ -1,10 +1,25 @@
 <?php
 //require 'recipeEmailer.php';
+require 'recipeEmailer.php';
 
+$inName="";
+$inEmail="";
+$inConcern="";
 
+if(isset($_POST['contactSubmit'])){
+	$inName=$_POST['contactName'];
+	$inEmail=$_POST['contactEmail'];
+	$inConcern=$_POST['contactConcern'];
+
+/*
+      $emailTest = new Emailer();
+      $emailTest->set_senderEmail("pet2433@tamerapeake.com");
+      echo $emailTest->get_senderEmail();
+      echo  $emailTest->sendEmail();
+*/
 class Emailer {
 
-  private $message = "Thank you for contacting Rife's Recipe's. We'll get back to you soon";
+  private $message = "";
   private $senderEmail ="pet2433@tamerapeake.com";
   private $recipientEmail ="";
   private $subject ="Rife's Recipe's Response";
@@ -12,12 +27,12 @@ class Emailer {
    public function __construct() { }
 
  //setter method?
-      public function set_message($inVal) {
-        $this->message = $inVal;
+      public function set_message($inConcern) {
+        $this->message = $inConcern;
       }
 
-      public function set_senderEmail($inVal) {
-        $this->senderEmail = $inVal;
+      public function set_senderEmail($inEmail) {
+        $this->senderEmail = $inEmail;
       }
 
       public function set_recipientEmail($inVal) {
@@ -56,9 +71,12 @@ class Emailer {
 
       return mail($to,$subject,$message,$headers);
     }
-}
+  }
+};
+
+
 ?>
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
@@ -70,7 +88,7 @@ class Emailer {
 </head>
 <body>
 <section id="fullPage">
-    <h1>Reife's Recipes: Contact Page</h1>
+    <h1>Rifes Recipes: Contact Page</h1>
       <form id="contactForm" name="contactForm" method="post" action="recipeContact.php" >
         <p>Please enter your name:
           <input type="text" name="contactName" id="contactName" value=""/>
