@@ -336,11 +336,29 @@ function showRecipe() {
 
 }
 
+function cloneClick() {
+	var receiveClone = document.getElementById("ingredientsEnter");
+	var cln = receiveClone.cloneNode(true);
+	document.getElementById("outClonedIng").appendChild(cln);
+}
+
+function cloneClickInst() {
+	var receiveCloneInst = document.getElementById("instructionsEnter");
+	var clnInt = receiveCloneInst.cloneNode(true);
+	document.getElementById("outClonedInts").appendChild(clnInt);
+
+}
+
 $(document).ready(function(){
   $("#recipeNameList").click(function(){
     $("#hideRecipes").toggle();
   });
+
+/*	$("#cloneIngredients").click(function(){
+		$("#ingredientsEnter").clone().appendTo("outClonedIng");
+	});*/
 });
+
 
 function hideRecipeList() {
     document.querySelector('#hideRecipes').style.display = "none";
@@ -379,41 +397,53 @@ function hideRecipeList() {
           </div>
           <!--<span class="error"><?php echo("$inSetServingSizeErrMsg");?></span>-->
             <p>Please Enter Ingredients:<br>
-              <input type="text" name="ingredientName" id="ingredientName" value="">
-              <span> X </span>
-              <label for="setIngredientSize"></label>
-              <select name="setIngredientSize" >
-                <option value="">#</option>
-                <option value="1/4">1/4</option>
-                <option value="1/2">1/2</option>
-                <option value="1/3">1/3</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-              </select>
-                <!--<span class="error"><?php echo("$inSetIngredientSizeErrMsg");?></span>-->
-              <label for="setUnits"></label>
-              <select name="setUnits" >
-                <option value="">Units (Optional)</option>
-                <option value="tsp">tsp</option>
-                <option value="tbsp">tbsp</option>
-                <option value="cup">cup</option>
-                <option value="pint">pint</option>
-                <option value="gallon">gallon</option>
-                <option value="pinch">pinch</option>
-								<option value="none">-</option>
-              </select>
-            <!--<span class="error"><?php echo("$inSetUnitsErrMsg");?></span>-->
+							<span id="ingredientsEnter">
+									<br>
+		              <input type="text" name="ingredientName" id="ingredientName" value="">
+		              <span> X </span>
+		              <label for="setIngredientSize"></label>
+		              <select name="setIngredientSize" >
+		                <option value="">#</option>
+		                <option value="1/4">1/4</option>
+		                <option value="1/2">1/2</option>
+		                <option value="1/3">1/3</option>
+		                <option value="1">1</option>
+		                <option value="2">2</option>
+		                <option value="3">3</option>
+		                <option value="4">4</option>
+		                <option value="5">5</option>
+		                <option value="6">6</option>
+		              </select>
+		                <!--<span class="error"><?php echo("$inSetIngredientSizeErrMsg");?></span>-->
+		              <label for="setUnits"></label>
+		              <select name="setUnits" >
+		                <option value="">Units (Optional)</option>
+		                <option value="tsp">tsp</option>
+		                <option value="tbsp">tbsp</option>
+		                <option value="cup">cup</option>
+		                <option value="pint">pint</option>
+		                <option value="gallon">gallon</option>
+		                <option value="pinch">pinch</option>
+										<option value="none">-</option>
+		              </select>
+								<br>
+	            <!--<span class="error"><?php echo("$inSetUnitsErrMsg");?></span>-->
+							</span>
+							<br>
+							<div id="outClonedIng"></div>
             </p>
+						<button type="button" id="cloneIngredients" onclick="cloneClick()">Add Ingredients</button>
           </div>
           <p>Instructions:
             <br>
-            <input type="text" name="recipeInstructions" id="recipeInstructions" value="">
-          <!--  <button>Add</button>-->
-          <!--  <button value="add" onclick="addMoreInstructions">Add Next Step</button>-->
+						<span id="instructionsEnter">
+							<br>
+            	<input type="text" name="recipeInstructions" id="recipeInstructions" value="">
+							<br>
+						</span>
+					<br>
+					<div id="outClonedInts"></div>
+					<button type="button" onclick="cloneClickInst()" >Add Instructions</button>
           </p>
             <input type="submit" name="submitButton" id="submitButton" value="Submit" />
             <input type="reset" name="resetButton" id="resetButton" value="Reset" />
