@@ -1,0 +1,23 @@
+<!doctype html>
+<HTML>
+<head>
+	<meta charset="utf-8">
+<script>
+	var principal = 1000;
+	var interestRate=0.05;
+	var finalInvestment;
+
+	finalInvestment = function investment(principal, interestRate) {
+		var oneYear = 1;
+		var investment;
+		investment = principal * interestRate * oneYear;
+		return investment;
+	}
+
+	document.querySelector('#result').innerHTML = finalInvestment;
+</script>
+</head>
+<body>
+	<p id="result"></p>
+</body>
+</HTML>
